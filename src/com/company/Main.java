@@ -60,5 +60,17 @@ public class Main {
       .map(Dish::getName)
       .collect(toList());
 
+    //intermediate operations try
+    List<String> names4 = menu.stream()
+      .filter(dish -> {
+        System.out.println("Filter " + dish.getName());
+        return dish.getCalories() > 300;
+      })
+      .map(dish -> {
+        System.out.println("Map " + dish.getName() );
+        return dish.getName();
+      })
+      .limit(3)
+      .collect(toList());
   }
 }
