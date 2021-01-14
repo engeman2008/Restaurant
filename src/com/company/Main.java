@@ -4,6 +4,9 @@ import com.company.domain.Dish;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class Main {
 
@@ -20,5 +23,19 @@ public class Main {
       new Dish("salmon", false, 450, Dish.Type.FISH)
     );
 
+    List<String> threeHighCaloriesNames =
+      menu.stream()
+      .filter(dish ->dish.getCalories() > 300)
+      .map(Dish::getName)
+      .limit(3)
+      .collect(toList());
+
+    System.out.println(threeHighCaloriesNames);
+
+    //Traversable only once
+        List<String> title = Arrays.asList("Modern", "Java" , "In", "Action");
+        Stream<String> s = title.stream();
+        s.forEach(System.out::println);
+//      s.forEach(System.out::println); will generate compilation error
     }
 }
