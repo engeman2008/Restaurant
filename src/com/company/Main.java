@@ -127,5 +127,22 @@ public class Main {
       .collect(toList());
 
 
+    /* Mapping - transforming -- creating new version of
+     * Extract the name of dishes*/
+    List<String> dishNames = menu.stream()
+      .map(Dish::getName)
+      .collect(toList());
+
+    //given list of words, return a list of the number of chars for each word
+    List<String> words = Arrays.asList("Modern", "Java", "In", "Action");
+    List<Integer> wordsLength = words.stream()
+      .map(String::length)
+      .collect(toList());
+
+    //return a list of the number of chars for each dishname, Chaining
+    List<Integer> dishNamesLengths = menu.stream()
+      .map(Dish::getName)
+      .map(String::length)
+      .collect(toList());
   }
 }
