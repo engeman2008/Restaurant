@@ -44,7 +44,7 @@ public class Main {
     //External vs Internal iterations
     List<String> names1 = new ArrayList<>();
     /* 1 - External iteration with for each */
-    for(Dish dish: menu){
+    for (Dish dish : menu) {
       names1.add(dish.getName());
     }
     /* 2 - External iteration using an iterator */
@@ -67,7 +67,7 @@ public class Main {
         return dish.getCalories() > 300;
       })
       .map(dish -> {
-        System.out.println("Map " + dish.getName() );
+        System.out.println("Map " + dish.getName());
         return dish.getName();
       })
       .limit(3)
@@ -77,8 +77,8 @@ public class Main {
     List<Dish> vegetarianDishes = menu.stream().filter(Dish::isVegetarian).collect(toList());
 
     //filter unique elements
-    List<Integer> numbers = Arrays.asList(1,2,1,3,3,2,4);
-    numbers.stream().filter(i -> i%2 == 0).distinct().forEach(System.out::println);
+    List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
+    numbers.stream().filter(i -> i % 2 == 0).distinct().forEach(System.out::println);
 
     //Slicing a stream
     //takeWhile -- dropWhile
@@ -88,25 +88,44 @@ public class Main {
       new Dish("rice", true, 350, Dish.Type.OTHER),
       new Dish("chicken", false, 400, Dish.Type.MEAT),
       new Dish("french fries", true, 530, Dish.Type.OTHER)
-      );
+    );
 
     /* using filter will iterate through the whole stream
-    * dishes with calories less than 320 */
+     * dishes with calories less than 320 */
     List<Dish> filteredMenu = specialMenu.stream()
       .filter(dish -> dish.getCalories() < 320)
       .collect(toList());
 
     /* use takeWhile the condition is true, it stops once it has found an element that fails to match
-    * dishes with calories less than 320 */
+     * dishes with calories less than 320 */
     List<Dish> slicedMenu = specialMenu.stream()
       .takeWhile(dish -> dish.getCalories() < 320)
       .collect(toList());
 
     /* dropWhile
-    * dishes that have greater than 320 calories  */
+     * dishes that have greater than 320 calories  */
     List<Dish> slicedMenu2 = specialMenu.stream()
-      .dropWhile(dish -> dish.getCalories() < 320 )
+      .dropWhile(dish -> dish.getCalories() < 320)
       .collect(toList());
+
+    //truncate
+    // Limit(3) -- first 3 dishes that haev calories greater than 300
+    List<Dish> dishes = specialMenu.stream()
+      .filter(dish -> dish.getCalories() > 300)
+      .limit(3)
+      .collect(toList());
+
+    //Skip(2) - discard first 2 elements
+    List<Dish> dishes2 = specialMenu.stream()
+      .filter(dish -> dish.getCalories() > 300)
+      .skip(2)
+      .collect(toList());
+    //filter first two meat dishes
+    List<Dish> meatDishes = menu.stream()
+      .filter(dish -> dish.getType() == Dish.Type.MEAT)
+      .limit(2)
+      .collect(toList());
+
 
   }
 }
