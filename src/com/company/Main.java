@@ -225,6 +225,11 @@ public class Main {
 
     int product = numbers.stream().reduce(1, (a, b) -> a * b); // 1 is the initial value for multiplication
 
+    /* Maximum and Minimum */
+    Optional<Integer> max =numbers.stream().reduce(Integer::max);
+    Optional<Integer> min = numbers.stream().reduce(Integer::min);
+
+
   }
 
 
