@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -200,12 +201,19 @@ public class Main {
     menu.stream().allMatch(dish -> dish.getCalories() < 1000); //check whether the menu is healthy, all calo less than 1000
     menu.stream().noneMatch(dish -> dish.getCalories() >= 1000); //the same as the previous example
 
-    /* find - findAny return Optional<T> */
+    /* find -
+    findAny return Optional<T> */
     menu.stream()
       .filter(Dish::isVegetarian)
       .findAny()
       .ifPresent(dish -> System.out.println(dish.getName()));
 
+    /* findFirst -- the same as findAny , findFirst is used in parallel*/
+    List<Integer> someNumbers = Arrays.asList(1,2,3,4,5);
+    Optional<Integer> firstElem = someNumbers.stream()
+      .map(n -> n*n)
+      .filter(n -> n%3 == 0)
+      .findFirst();
 
   }
 
