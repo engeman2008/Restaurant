@@ -144,5 +144,56 @@ public class Main {
       .map(Dish::getName)
       .map(String::length)
       .collect(toList());
+
+    //Flattening streams
+    /* the stream returned is Stream<String[]> , output is List<String[]>
+     * but we need Stream<String> - List<String>*/
+    List<String[]> fl1 = words.stream()
+      .map(word -> word.split(""))
+      .distinct()
+      .collect(toList());
+
+    //attempt using map and Arrays.Stream
+    /* not work as well */
+//    List<String> fl2= words.stream()
+//      .map(word -> word.split(""))
+//      .map(Arrays::stream)
+//      .distinct()
+//      .collect(toList());
+
+    //use flatmap
+    /* flatmap map each array with the xontent of that stream
+    all streams to single stream
+    * from Stream<String[]> to Stream<String> */
+    List<String> fm = words.stream()
+      .map(word -> word.split(""))
+      .flatMap(Arrays::stream)
+      .distinct()
+      .collect(toList());
+
+    /* given numbers -> get square for each number*/
+    List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5);
+    List<Integer> squared = nums.stream()
+      .map(n -> n * n)
+      .collect(toList());
+
+    /* given two lists > return all pairs of numbers*/
+    List<Integer> numbers1 = Arrays.asList(1, 2, 3);
+    List<Integer> numbers2 = Arrays.asList(3, 4);
+    List<int[]> pairs = numbers1.stream()
+      .flatMap(i -> numbers2.stream().map(j -> new int[]{i, j}))
+      .collect(toList());
+
+
+    //extend prev example - get pairs whose sum is divisable by 3
+    numbers1.stream()
+      .flatMap(i ->
+        numbers2.stream()
+          .filter(j -> i + j % 3 == 0).
+          map(j -> new int[]{i, j})
+      )
+      .collect(toList());
   }
+
+
 }
