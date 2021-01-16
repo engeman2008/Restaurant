@@ -209,11 +209,21 @@ public class Main {
       .ifPresent(dish -> System.out.println(dish.getName()));
 
     /* findFirst -- the same as findAny , findFirst is used in parallel*/
-    List<Integer> someNumbers = Arrays.asList(1,2,3,4,5);
+    List<Integer> someNumbers = Arrays.asList(1, 2, 3, 4, 5);
     Optional<Integer> firstElem = someNumbers.stream()
-      .map(n -> n*n)
-      .filter(n -> n%3 == 0)
+      .map(n -> n * n)
+      .filter(n -> n % 3 == 0)
       .findFirst();
+
+    /* Reducing */
+    // Sum
+    int sum = numbers.stream().reduce(0, (a, b) -> a + b); //0 is the initial value for the sum
+    //Sum using method reference
+    int sum2 = numbers.stream().reduce(0, Integer::sum);
+    //Sum with no initial value, optional to handle if the stream has no elements
+    Optional<Integer> sum3 = numbers.stream().reduce((a,b) -> a+ b);
+
+    int product = numbers.stream().reduce(1, (a, b) -> a * b); // 1 is the initial value for multiplication
 
   }
 
