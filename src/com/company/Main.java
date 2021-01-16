@@ -197,8 +197,16 @@ public class Main {
     /* Matching - anyMatch - allMatch - noneMatch */
 
     menu.stream().anyMatch(Dish::isVegetarian); //check whether the menu has vegetarian option
-    menu.stream().allMatch(dish -> dish.getCalories() < 1000 ); //check whether the menu is healthy, all calo less than 1000
+    menu.stream().allMatch(dish -> dish.getCalories() < 1000); //check whether the menu is healthy, all calo less than 1000
     menu.stream().noneMatch(dish -> dish.getCalories() >= 1000); //the same as the previous example
+
+    /* find - findAny return Optional<T> */
+    menu.stream()
+      .filter(Dish::isVegetarian)
+      .findAny()
+      .ifPresent(dish -> System.out.println(dish.getName()));
+
+
   }
 
 
