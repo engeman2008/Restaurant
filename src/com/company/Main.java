@@ -229,6 +229,11 @@ public class Main {
     Optional<Integer> max =numbers.stream().reduce(Integer::max);
     Optional<Integer> min = numbers.stream().reduce(Integer::min);
 
+    //count number of dishes in stream
+    int count = menu.stream()
+      .map(d -> 1)
+      .reduce(0, (a,b) -> a+ b);
+    long count2 = menu.stream().count();
 
   }
 
