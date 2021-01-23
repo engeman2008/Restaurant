@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -221,20 +223,39 @@ public class Main {
     //Sum using method reference
     int sum2 = numbers.stream().reduce(0, Integer::sum);
     //Sum with no initial value, optional to handle if the stream has no elements
-    Optional<Integer> sum3 = numbers.stream().reduce((a,b) -> a+ b);
+    Optional<Integer> sum3 = numbers.stream().reduce((a, b) -> a + b);
 
     int product = numbers.stream().reduce(1, (a, b) -> a * b); // 1 is the initial value for multiplication
 
     /* Maximum and Minimum */
-    Optional<Integer> max =numbers.stream().reduce(Integer::max);
+    Optional<Integer> max = numbers.stream().reduce(Integer::max);
     Optional<Integer> min = numbers.stream().reduce(Integer::min);
 
     //count number of dishes in stream
     int count = menu.stream()
       .map(d -> 1)
-      .reduce(0, (a,b) -> a+ b);
+      .reduce(0, (a, b) -> a + b);
     long count2 = menu.stream().count();
 
+    /////////////////// Numeric Streams
+    /*Sum*/
+    int sumCalories = menu.stream()
+      .mapToInt(Dish::getCalories)
+      .sum();
+
+    IntStream intStream = menu.stream().mapToInt(Dish::getCalories); //integer stream
+    Stream<Integer> stream = intStream.boxed(); //convert back to stream of objects
+
+    /*Max*/
+    OptionalInt maxCalories = menu.stream()
+      .mapToInt(Dish::getCalories)
+      .max();
+
+    int maxCal = maxCalories.orElse(1); //if no max, the max is 1
+
+    /*Numeric ranges*/
+    IntStream.rangeClosed(1, 100).filter(n -> n % 2 == 0).count(); // inclusive - result is 50
+    IntStream.range(1, 100).filter(n -> n % 2 == 0).count(); // exclusive - result is 49
   }
 
 

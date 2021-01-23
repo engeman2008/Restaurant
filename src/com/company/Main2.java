@@ -27,10 +27,10 @@ public class Main2 {
       new Transaction(alan, 2012, 950)
     );
     /* 1- find all transactions in 2011 , sort them by value small to high*/
-    List<Transaction> q1 = transactions.stream()
-      .filter(t -> t.getYear() == 2011)
-      .sorted(comparing(Transaction::getValue))
-      .collect(toList());
+//    List<Transaction> q1 = transactions.stream()
+//      .filter(t -> t.getYear() == 2011)
+//      .sorted(comparing(Transaction::getValue))
+//      .collect(toList());
 
     /* 2- what are the unique cities where the traders work*/
     List<String> uniqueCities = transactions.stream()
